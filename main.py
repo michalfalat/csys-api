@@ -7,7 +7,7 @@ app = FastAPI()
 
 @app.get("/")
 def read_root():
-    return 'C-SYS API 0.9 is running...'
+    return 'C-SYS API 0.11 is running...'
 
 
 @app.get("/items/{item_id}")
