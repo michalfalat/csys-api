@@ -1,11 +1,17 @@
-FROM python:3.9
+FROM alpine:3.18
 
-WORKDIR /app
+RUN mkdir /var/csys-api
 
-COPY ./requirements.txt /app/requirements.txt
+WORKDIR /var/csys-api
 
-RUN pip install --no-cache-dir --upgrade -r /app/requirements.txt
+COPY .  .
 
-COPY ./src/main.py /app/
+RUN apk update
 
-CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "3003"]
+RUN apk add python3
+
+RUN pip3 install -r requirements.txt
+
+EXPOSE 3003 
+
+CMD ["uvicorn", "src.main:app", "--host", "0.0.0.0", "--port", "3003"] -h
