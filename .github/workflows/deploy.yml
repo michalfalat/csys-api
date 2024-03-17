@@ -26,7 +26,34 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      # Runs a single command using the runners shell
+      - name: Output variables
+        run: |
+          echo "ENV version : $VERSION"
+        # Runs a single command using the runners shell
       - name: Build the Docker image
         run: docker build . --file Dockerfile --tag csys-api:$(date +%s)
+
+        # Stop previously running instance (if any)
+      - name: Stop previous instance
+        run: docker stop csys-api || true
+
+        # Run the built Docker image with environment variables
+      - name: Run Docker image with environment variables
+        run: |
+          docker run \
+            -p 80:3003 \
+            --env DB_USER=$DB_USER \
+            --env DB_PASSWORD=$DB_PASSWORD \
+            --env DB_IP=$DB_IP \
+            --env DB_PORT=$DB_PORT \
+            --env DB_NAME=$DB_NAME \
+            --env VERSION=$VERSION \
+            csys-api:$(date +%s)
+        env:
+          DB_USER: ${{ vars.DB_USER }}
+          DB_NAME: ${{ vars.DB_NAME }}
+          DB_PASSWORD: ${{ vars.DB_PASSWORD }}
+          DB_IP: ${{ vars.DB_IP }}
+          DB_PORT: ${{ vars.DB_PORT }}
+          VERSION: ${{ vars.VERSION }}
             
