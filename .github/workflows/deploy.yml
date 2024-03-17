@@ -48,7 +48,7 @@ jobs:
                     --env DB_PORT=$DB_PORT \
                     --env DB_NAME=$DB_NAME \
                     --env VERSION=$VERSION \
-                    csys-api:$(date +%s)
+                    csys-api:latest
               env:
                   DB_USER: ${{ vars.DB_USER }}
                   DB_NAME: ${{ vars.DB_NAME }}
