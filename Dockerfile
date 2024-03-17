@@ -11,7 +11,7 @@ RUN apk update && \
     apk add --no-cache python3 && \
     python3 -m ensurepip && \
     python3 -m pip install --upgrade pip && \
-    pip install -r /code/requirements.txt
+    python3 -m pip install -r /code/requirements.txt
 
 EXPOSE 3003 
 
