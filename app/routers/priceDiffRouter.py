@@ -18,3 +18,12 @@ def get_price_diffs() -> List[PriceDiffSchema]:
     if not result:
         return JSONResponse(status_code=404, content={'message': "Not found"})
     return JSONResponse(status_code=200, content=jsonable_encoder(result))
+
+# Get current differences
+@price_diff_router.get('/price-diffs/current-differences', tags=['price_diffs'], status_code=200)
+def get_current_differences():
+    db = Session()
+    result = PriceDiffService(db).get_current_differences()
+    if not result:
+        return JSONResponse(status_code=404, content={'message': "Not found"})
+    return JSONResponse(status_code=200, content=jsonable_encoder(result))

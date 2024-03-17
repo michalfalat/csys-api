@@ -1,4 +1,5 @@
 ﻿import os
+import asyncio
 from app.config.database import Session, engine, Base
 from fastapi import FastAPI
 from dotenv import load_dotenv
@@ -10,6 +11,10 @@ load_dotenv()
 from app.routers.priceDiffRouter import price_diff_router
 from app.routers.exchangeRouter import exchange_router
 from app.routers.priceDiffParamsRouter import price_diff_params_router
+
+# services
+from app.services.priceDiffService import PriceDiffService
+from app.services.backgroundRunner import BackgroundRunner
 
 # app
 app = FastAPI()
@@ -23,14 +28,15 @@ app.include_router(price_diff_router)
 app.include_router(exchange_router)
 app.include_router(price_diff_params_router)
 
-# runner = BackgroundRunner()
-# priceDiffCheck = PriceDiffCheck()
+runner = BackgroundRunner()
 
-# @app.on_event('startup')
-# async def app_startup():
-#     runner.task = asyncio.create_task(priceDiffCheck.run_main(exchangeService))
+@app.on_event('startup')
+async def app_startup():    
+    db = Session()
+    result = PriceDiffService(db).run_main_check_task()
+    runner.task = asyncio.create_task(result)
 
 @app.get("/")
 def root_info():
     env_version = os.environ['VERSION']
-    return 'C-SYS API 0.13 is running: Env: ' + env_version
+    return 'C-SYS API 0.14 is running: Env: ' + env_version
