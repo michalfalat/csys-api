@@ -4,56 +4,55 @@ name: CI
 
 # Controls when the workflow will run
 on:
-  # Triggers the workflow on push or pull request events but only for the "main" branch
-  push:
-    branches: [ "main" ]
-  pull_request:
-    branches: [ "main" ]
+    # Triggers the workflow on push or pull request events but only for the "main" branch
+    push:
+        branches: ["main"]
+    pull_request:
+        branches: ["main"]
 
-  # Allows you to run this workflow manually from the Actions tab
-  workflow_dispatch:
+    # Allows you to run this workflow manually from the Actions tab
+    workflow_dispatch:
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
-  # This workflow contains a single job called "build"
-  build:
-    # The type of runner that the job will run on
-    runs-on: self-hosted
+    # This workflow contains a single job called "build"
+    build:
+        # The type of runner that the job will run on
+        runs-on: self-hosted
 
-    # Steps represent a sequence of tasks that will be executed as part of the job
-    steps:
-      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-      - name: Checkout code
-        uses: actions/checkout@v3
+        # Steps represent a sequence of tasks that will be executed as part of the job
+        steps:
+            # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+            - name: Checkout code
+              uses: actions/checkout@v3
 
-      - name: Output variables
-        run: |
-          echo "ENV version : $VERSION"
-        # Runs a single command using the runners shell
-      - name: Build the Docker image
-        run: docker build . --file Dockerfile --tag csys-api:$(date +%s)
+            - name: Output variables
+              run: |
+                  echo "ENV version : ${{ vars.VERSION }}"
+              # Runs a single command using the runners shell
+            - name: Build the Docker image
+              run: docker build . --file Dockerfile --tag csys-api:$(date +%s)
 
-        # Stop previously running instance (if any)
-      - name: Stop previous instance
-        run: docker stop csys-api || true
+              # Stop previously running instance (if any)
+            - name: Stop previous instance
+              run: docker stop csys-api || true
 
-        # Run the built Docker image with environment variables
-      - name: Run Docker image with environment variables
-        run: |
-          docker run \
-            -p 80:3003 \
-            --env DB_USER=$DB_USER \
-            --env DB_PASSWORD=$DB_PASSWORD \
-            --env DB_IP=$DB_IP \
-            --env DB_PORT=$DB_PORT \
-            --env DB_NAME=$DB_NAME \
-            --env VERSION=$VERSION \
-            csys-api:$(date +%s)
-        env:
-          DB_USER: ${{ vars.DB_USER }}
-          DB_NAME: ${{ vars.DB_NAME }}
-          DB_PASSWORD: ${{ vars.DB_PASSWORD }}
-          DB_IP: ${{ vars.DB_IP }}
-          DB_PORT: ${{ vars.DB_PORT }}
-          VERSION: ${{ vars.VERSION }}
-            
+              # Run the built Docker image with environment variables
+            - name: Run Docker image with environment variables
+              run: |
+                  docker run \
+                    -p 80:3003 \
+                    --env DB_USER=$DB_USER \
+                    --env DB_PASSWORD=$DB_PASSWORD \
+                    --env DB_IP=$DB_IP \
+                    --env DB_PORT=$DB_PORT \
+                    --env DB_NAME=$DB_NAME \
+                    --env VERSION=$VERSION \
+                    csys-api:$(date +%s)
+              env:
+                  DB_USER: ${{ vars.DB_USER }}
+                  DB_NAME: ${{ vars.DB_NAME }}
+                  DB_PASSWORD: ${{ vars.DB_PASSWORD }}
+                  DB_IP: ${{ vars.DB_IP }}
+                  DB_PORT: ${{ vars.DB_PORT }}
+                  VERSION: ${{ vars.VERSION }}
