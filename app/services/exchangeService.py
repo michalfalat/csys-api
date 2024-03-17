@@ -1,5 +1,5 @@
 import ccxt
-from models.exchangeModel import Exchange as ExchangeModel
+from app.models.exchangeModel import Exchange as ExchangeModel
 import datetime
 
 class ExchangeService:

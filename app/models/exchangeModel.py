@@ -1,4 +1,4 @@
-from config.database import Base
+from app.config.database import Base
 from sqlalchemy import Column, Integer, String, Float, DateTime
 
 class Exchange(Base):

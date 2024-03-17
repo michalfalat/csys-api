@@ -1,4 +1,4 @@
-from models.priceDiffParamsModel import PriceDiffParams as PriceDiffParamsModel
+from app.models.priceDiffParamsModel import PriceDiffParams as PriceDiffParamsModel
 import datetime
 
 class PriceDiffParamsService:

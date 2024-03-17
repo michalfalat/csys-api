@@ -1,7 +1,7 @@
 import datetime
 import asyncio
 import ccxt.pro
-from models.priceDiffModel import PriceDiff as PriceDiffModel
+from app.models.priceDiffModel import PriceDiff as PriceDiffModel
 
 from concurrent.futures import ProcessPoolExecutor
 

@@ -1,10 +1,10 @@
 from fastapi import APIRouter
 from fastapi.responses import JSONResponse
 from typing import List
-from config.database import Session
-from models.priceDiffModel import PriceDiff as PriceDiffModel
+from app.config.database import Session
+from app.models.priceDiffModel import PriceDiff as PriceDiffModel
 from fastapi.encoders import jsonable_encoder
-from services.exchangeService import ExchangeService
+from app.services.exchangeService import ExchangeService
 
 exchange_router = APIRouter()
 

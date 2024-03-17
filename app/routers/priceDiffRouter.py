@@ -2,11 +2,11 @@ from fastapi import APIRouter
 from fastapi import Depends, Path, Query
 from fastapi.responses import JSONResponse
 from typing import Optional, List
-from config.database import Session
-from models.priceDiffModel import PriceDiff as PriceDiffModel
+from app.config.database import Session
+from app.models.priceDiffModel import PriceDiff as PriceDiffModel
 from fastapi.encoders import jsonable_encoder
-from services.priceDiffService import PriceDiffService
-from schemas.priceDiffSchema import PriceDiffSchema
+from app.services.priceDiffService import PriceDiffService
+from app.schemas.priceDiffSchema import PriceDiffSchema
 
 price_diff_router = APIRouter()
 

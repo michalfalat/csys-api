@@ -1,5 +1,5 @@
 ﻿import os
-from config.database import Session, engine, Base
+from app.config.database import Session, engine, Base
 from fastapi import FastAPI
 from dotenv import load_dotenv
 
@@ -7,9 +7,9 @@ from dotenv import load_dotenv
 load_dotenv()
 
 # routers
-from routers.priceDiffRouter import price_diff_router
-from routers.exchangeRouter import exchange_router
-from routers.priceDiffParamsRouter import price_diff_params_router
+from app.routers.priceDiffRouter import price_diff_router
+from app.routers.exchangeRouter import exchange_router
+from app.routers.priceDiffParamsRouter import price_diff_params_router
 
 # app
 app = FastAPI()
