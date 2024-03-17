@@ -31,7 +31,7 @@ jobs:
                   echo "ENV version : ${{ vars.VERSION }}"
               # Runs a single command using the runners shell
             - name: Build the Docker image
-              run: docker build . --file Dockerfile --tag csys-api:$(date +%s)
+              run: docker build . --file Dockerfile --tag csys-api
 
               # Stop previously running instance (if any)
             - name: Stop previous instance
