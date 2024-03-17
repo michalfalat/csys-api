@@ -35,7 +35,7 @@ jobs:
 
               # Stop previously running instance (if any)
             - name: Stop previous instance
-              run: docker stop csys-api || true
+              run: docker stop csys-api:latest || true
 
               # Run the built Docker image with environment variables
             - name: Run Docker image with environment variables
