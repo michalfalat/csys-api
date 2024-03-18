@@ -39,4 +39,4 @@ async def app_startup():
 @app.get("/")
 def root_info():
     env_version = os.environ['VERSION']
-    return 'C-SYS API 0.14 is running: Env: ' + env_version
+    return 'C-SYS API 0.15 is running: Env: ' + env_version
