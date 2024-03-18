@@ -29,7 +29,7 @@ jobs:
             - name: Output variables
               run: |
                   echo "ENV version : ${{ vars.VERSION }}"
-                  echo "Current branch: $GITHUB_BASE_REF
+                  echo "Current branch: $GITHUB_BASE_REF"
               # Runs a single command using the runners shell
             - name: Build the Docker image
               run: docker build . --file Dockerfile --tag csys-api
