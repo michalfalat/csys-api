@@ -25,7 +25,7 @@ Base.metadata.create_all(engine)
 
 # add routers
 app.include_router(price_diff_router)
-app.include_router(exchange_router, prefix="api/exchanges", tags=['Exchanges'])
+app.include_router(exchange_router, prefix="/api/exchanges", tags=['Exchanges'])
 app.include_router(price_diff_params_router)
 
 runner = BackgroundRunner()
