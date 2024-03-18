@@ -48,6 +48,7 @@ jobs:
               run: |
                   docker run \
                     --name csys-api \
+                    -t \
                     -d \
                     -p 80:3003 \
                     --env DB_USER=$DB_USER \
