@@ -29,24 +29,24 @@ jobs:
             - name: Output variables
               run: |
                   echo "ENV version : ${{ vars.VERSION }}"
-                  echo "Current branch : ${{ GITHUB_BASE_REF }}"
+                  echo "Current branch: $GITHUB_BASE_REF
               # Runs a single command using the runners shell
             - name: Build the Docker image
               run: docker build . --file Dockerfile --tag csys-api
 
               # Stop previously running instance (if any)
             - name: Stop previous instance
-              run: docker stop csys-api:$GITHUB_BASE_REF || true
+              run: docker stop csys-api:main || true
 
               # Remove previously running instance (if any)
             - name: Remove previous instance
-              run: docker rm csys-api:$GITHUB_BASE_REF || true
+              run: docker rm csys-api:main || true
 
               # Run the built Docker image with environment variables
             - name: Run Docker image with environment variables
               run: |
                   docker run \
-                    --name csys-api:$GITHUB_BASE_REF \
+                    --name csys-api:main \
                     -p 80:3003 \
                     --env DB_USER=$DB_USER \
                     --env DB_PASSWORD=$DB_PASSWORD \
@@ -54,7 +54,7 @@ jobs:
                     --env DB_PORT=$DB_PORT \
                     --env DB_NAME=$DB_NAME \
                     --env VERSION=$VERSION \
-                    csys-api:$GITHUB_BASE_REF
+                    csys-api:latest
               env:
                   DB_USER: ${{ vars.DB_USER }}
                   DB_NAME: ${{ vars.DB_NAME }}
