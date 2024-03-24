@@ -21,18 +21,21 @@ class PriceDiffService:
 
     async def log(self, exchange, symbol, timer=0.01):        
         while True:
-            ticker = await exchange.watch_ticker(symbol)
-            current_time = datetime.datetime.now().strftime("%Y-%m-%dT%H:%M:%S.%f")
-            ask = ticker['ask']
-            bid = ticker['bid']
-            value_obj = {
-                'exchange': exchange.id,
-                'symbol': symbol,
-                'ask': ask,
-                'bid': bid,
-                'time': current_time
-            }
-            differences[str(exchange.id)] = value_obj
+            try:
+                ticker = await exchange.watch_ticker(symbol)
+                current_time = datetime.datetime.now().strftime("%Y-%m-%dT%H:%M:%S.%f")
+                ask = ticker['ask']
+                bid = ticker['bid']
+                value_obj = {
+                    'exchange': exchange.id,
+                    'symbol': symbol,
+                    'ask': ask,
+                    'bid': bid,
+                    'time': current_time
+                }
+                differences[str(exchange.id)] = value_obj
+            except Exception as e:
+                print('PriceDiffService log Error: ', symbol, str(exchange), str(e))
             #print(str(differences))
             await asyncio.sleep(timer)
 

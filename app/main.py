@@ -36,7 +36,7 @@ async def app_startup():
     result = PriceDiffService(db).run_main_check_task()
     runner.task = asyncio.create_task(result)
 
-@app.get("/")
+@app.get("/stats")
 def root_info():
     env_version = os.environ['VERSION']
-    return 'C-SYS API 0.18 is running: Env: ' + env_version
+    return 'C-SYS API 0.19 is running: Env: ' + env_version
