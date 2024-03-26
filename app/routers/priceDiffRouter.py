@@ -11,7 +11,7 @@ from app.schemas.priceDiffSchema import PriceDiffSchema
 price_diff_router = APIRouter()
 
 # Get records from the price_diffs table
-@price_diff_router.get('/price-diffs', tags=['Price Diffs'], response_model=List[PriceDiffSchema], status_code=200)
+@price_diff_router.get('/', response_model=List[PriceDiffSchema], status_code=200)
 def get_price_diffs() -> List[PriceDiffSchema]:
     db = Session()
     result = PriceDiffService(db).get_price_diffs()
@@ -20,10 +20,19 @@ def get_price_diffs() -> List[PriceDiffSchema]:
     return JSONResponse(status_code=200, content=jsonable_encoder(result))
 
 # Get current differences
-@price_diff_router.get('/price-diffs/current-differences', tags=['Price Diffs'], status_code=200)
+@price_diff_router.get('/current-differences', status_code=200)
 def get_current_differences():
     db = Session()
     result = PriceDiffService(db).get_current_differences()
+    if not result:
+        return JSONResponse(status_code=404, content={'message': "Not found"})
+    return JSONResponse(status_code=200, content=jsonable_encoder(result))
+
+# Get strong differences
+@price_diff_router.get('/strong-differences', status_code=200)
+def get_strong_differences():
+    db = Session()
+    result = PriceDiffService(db).get_strong_differences()
     if not result:
         return JSONResponse(status_code=404, content={'message': "Not found"})
     return JSONResponse(status_code=200, content=jsonable_encoder(result))
