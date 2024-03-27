@@ -60,6 +60,7 @@ jobs:
                     --env VERSION=$VERSION \
                     csys-api:main
               env:
+                  DB_CONNECTOR: ${{ vars.DB_CONNECTOR }}
                   DB_USER: ${{ vars.DB_USER }}
                   DB_NAME: ${{ vars.DB_NAME }}
                   DB_PASSWORD: ${{ vars.DB_PASSWORD }}
