@@ -51,6 +51,7 @@ jobs:
                     -t \
                     -d \
                     -p 80:3003 \
+                    --env DB_CONNECTOR=$DB_CONNECTOR \
                     --env DB_USER=$DB_USER \
                     --env DB_PASSWORD=$DB_PASSWORD \
                     --env DB_IP=$DB_IP \
