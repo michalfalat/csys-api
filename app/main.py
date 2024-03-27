@@ -1,6 +1,6 @@
 ﻿import os
 import asyncio
-from app.config.database import Session, engine, Base
+from app.config.database import Session
 from fastapi import FastAPI
 from dotenv import load_dotenv
 
@@ -21,7 +21,7 @@ app = FastAPI(docs_url="/api-doc", redoc_url=None)
 app.title = "CSYS API"
 app.version = "0.0.1"
 
-Base.metadata.create_all(engine)
+# Base.metadata.create_all(engine)
 
 # add routers
 app.include_router(price_diff_router, prefix="/api/price-diffs", tags=['Price Diffs'])

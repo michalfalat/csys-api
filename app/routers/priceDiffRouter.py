@@ -28,11 +28,11 @@ def get_current_differences():
         return JSONResponse(status_code=404, content={'message': "Not found"})
     return JSONResponse(status_code=200, content=jsonable_encoder(result))
 
-# Get strong differences
-@price_diff_router.get('/strong-differences', status_code=200)
-def get_strong_differences():
+# Get significant differences
+@price_diff_router.get('/significant-differences', status_code=200)
+def get_significant_differences():
     db = Session()
-    result = PriceDiffService(db).get_strong_differences()
+    result = PriceDiffService(db).get_significant_differences()
     if not result:
-        return JSONResponse(status_code=404, content={'message': "Not found"})
+        return JSONResponse(status_code=200, content=[])
     return JSONResponse(status_code=200, content=jsonable_encoder(result))
